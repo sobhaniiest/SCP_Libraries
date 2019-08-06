@@ -5,7 +5,10 @@ libSCPService_la_SOURCES = CPNewPrinterDialog.c \
                            asyncpk.c \
                            asyncipp.c \
                            newprinter.c \
-                           authinfocache.c
+                           authinfocache.c \
+                           nstring.c \
+                           PPDialog.c \
+                           MissingExecutables.c
 
 libSCPService_la_CPPFLAGS  = $(GLIB_CFLAGS)
 libSCPService_la_CPPFLAGS += $(GIO_CFLAGS)
@@ -30,6 +33,9 @@ scp_service_headers_HEADERS = CPNewPrinterDialog.h \
                               asyncpk.h \
                               asyncipp.h \
                               newprinter.h \
-                              authinfocache.h
+                              authinfocache.h \
+                              nstring.h \
+                              PPDialog.h \
+                              MissingExecutables.h
 
 include_HEADERS = SCPService.h
