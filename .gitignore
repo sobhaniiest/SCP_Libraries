@@ -50,3 +50,22 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Ignore the stuffs of automake and autotools
+autom4te.cache/
+Makefile
+.deps/
+Makefile.in
+aclocal.m4
+ar-lib
+compile
+config.guess
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
