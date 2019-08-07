@@ -9,7 +9,8 @@
 #include <scp-services-headers/asyncpk.h>
 #include <scp-services-headers/asyncipp.h>
 #include <scp-services-headers/nstring.h>
-#include <scp-services-headers/PPDDialog.h>
+#include <scp-services-headers/PPDialog.h>
 #include <scp-services-headers/MissingExecutables.h>
+#include <scp-services-headers/killtimer.h>
 
 #endif

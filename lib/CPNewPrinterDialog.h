@@ -11,6 +11,7 @@
 #include "ppdcache.h" /*fetch_ppd*/
 #include "asyncipp.h" /*getURI*/
 #include "newprinter.h" /*init*/
+#include "killtimer.h" 
 #include "CPNewPrinterDialog.h"
 
 typedef struct _CPNewPrinterDialog_data

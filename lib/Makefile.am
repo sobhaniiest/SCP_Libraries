@@ -8,7 +8,8 @@ libSCPService_la_SOURCES = CPNewPrinterDialog.c \
                            authinfocache.c \
                            nstring.c \
                            PPDialog.c \
-                           MissingExecutables.c
+                           MissingExecutables.c \
+                           killtimer.c
 
 libSCPService_la_CPPFLAGS  = $(GLIB_CFLAGS)
 libSCPService_la_CPPFLAGS += $(GIO_CFLAGS)
@@ -36,6 +37,7 @@ scp_service_headers_HEADERS = CPNewPrinterDialog.h \
                               authinfocache.h \
                               nstring.h \
                               PPDialog.h \
-                              MissingExecutables.h
+                              MissingExecutables.h \
+                              killtimer.h
 
 include_HEADERS = SCPService.h

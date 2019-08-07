@@ -8,8 +8,9 @@
 #include <cups/cups.h>
 #include "newprinter.h"
 #include "asyncconn.h"
+#include "killtimer.h"
 #include "PPDialog.h"
 
-void PrintTestPage(guint xid, const gchar *name);
+void PrintTestPage(unsigned int xid, const char *name);
 
 #endif

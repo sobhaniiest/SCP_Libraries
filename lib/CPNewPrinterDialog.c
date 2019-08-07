@@ -19,6 +19,7 @@ void NewPrinterFromDevice(unsigned int xid,
                           const char *device_uri,
                           const char *device_id)
 {
+    add_hold();
     init("printer_with_uri", 
          device_uri, 
          NULL, 
@@ -32,6 +33,7 @@ void NewPrinterFromDevice(unsigned int xid,
 void DownloadDriverForDeviceID(unsigned int xid, 
                                const char *device_id)
 {
+    add_hold();
     init("download_driver", 
          NULL, 
          NULL, 
@@ -46,6 +48,7 @@ void ChangePPD(unsigned int xid,
                const char *name,
                const char *device_id)
 {
+    add_hold();
     ref_data.mxid = xid;
     ref_data.mname = name;
     ref_data.mdevice_id = device_id;

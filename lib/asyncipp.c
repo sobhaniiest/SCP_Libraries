@@ -19,10 +19,13 @@ static void set_ipp_error (ipp_status_t status, const char *message)
 GHashTable *getURI(http_t *new)
 {
     GHashTable *result = g_hash_table_new(g_str_hash, g_str_equal);
-      ipp_t *request = ippNewRequest(CUPS_GET_PRINTERS), *answer;
+    ipp_t *request = ippNewRequest(CUPS_GET_PRINTERS), *answer;
     ipp_attribute_t *attr;
     const char *printer = NULL;
     const char *uri = NULL;
+    bool flag_printer = false,
+         flag_uri = false;
+         
     const char *attributes[] = { "printer-name", "device-uri" };
 
     ippAddStrings(request, 
@@ -61,16 +64,22 @@ GHashTable *getURI(http_t *new)
 
         for (; attr && ippGetGroupTag (attr) == IPP_TAG_PRINTER; attr = ippNextAttribute (answer)) 
         {
-              if (!strcmp (ippGetName (attr), "printer-name") && ippGetValueTag (attr) == IPP_TAG_NAME)
-                    printer = (char *) ippGetString (attr, 0, NULL);
+            if (!strcmp (ippGetName (attr), "printer-name") && ippGetValueTag (attr) == IPP_TAG_NAME)
+            {
+                printer = (char *) ippGetString (attr, 0, NULL);
+                flag_printer = true;
+            }
             else if ((!strcmp (ippGetName (attr), "device-uri")) && ippGetValueTag (attr) == IPP_TAG_URI) 
-                    uri = ippGetString(attr, 0, NULL);
+            {
+                uri = ippGetString(attr, 0, NULL);
+                flag_uri = true;
+            }
 
-            if(printer != NULL && uri != NULL)
+            if (flag_printer && flag_uri)
             {
                 g_hash_table_insert(result, (char *)printer, (char *)uri);
-                printer = NULL;
-                uri = NULL;
+                flag_printer = false;
+                flag_uri = false;
             }
           }
 

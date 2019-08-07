@@ -29,7 +29,7 @@ static int activate_error(const char *name)
     return status;
 }
 
-void PrintTestPage(guint xid, const gchar *name)
+void PrintTestPage(unsigned int xid, const char *name)
 {
     http_t *http = Async_Connection(NULL, 
                                     NULL, 
@@ -41,7 +41,7 @@ void PrintTestPage(guint xid, const gchar *name)
                                     true);
 
     GHashTable *result = getURI(http);
-
+    alive();
     if(g_hash_table_contains(result, name))
     {
         fprintf(stderr, "Printing test page\n");
@@ -52,4 +52,5 @@ void PrintTestPage(guint xid, const gchar *name)
         fprintf(stderr, "Printer not found\n");
         activate_error(g_locale_to_utf8 (name, -1, 0, 0, 0));
     }
+    add_hold ();
 }
