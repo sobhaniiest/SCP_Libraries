@@ -23,6 +23,8 @@
     ppdFindAttr
 */
 #include <stdbool.h>
+#include <glib.h> 
+#include <gio/gio.h>
 #include "nstring.h"
 /* 
     count_tokens
@@ -37,8 +39,6 @@
 
 #define ARRAY_STR_LEN 39
 
-extern int exes_index;
-extern char *exes_to_install[1024];
-char **missingexecutables(const char *ppd_filename);
+GPtrArray *missingexecutables(const char *ppd_filename);
 
 #endif

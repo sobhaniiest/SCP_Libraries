@@ -2,12 +2,9 @@
 
 #define PATH_MAX 4096 
 
-char *exes_to_install[1024];
-int exes_index;
-
 static void WriteFd(FILE *file, ppd_file_t *ppd, int fd);
 static char *pathcheck(char *name, char *path);
-static void add_missing(char *exe);
+static void add_missing(char *exe, GPtrArray *exes_to_install);
 
 static void WriteFd(FILE *file, ppd_file_t *ppd, int fd)
 {
@@ -132,14 +129,13 @@ static char *pathcheck(char *name, char *path)
 }
 
 /* Strip out foomatic '%'-style place-holders. */
-static void add_missing(char *exe)
+static void add_missing(char *exe, GPtrArray *exes_to_install)
 {
     char *p = strstr(exe, "%");
     if(p)
         strcpy(p, "");
-    exes_to_install[exes_index] = (char *)malloc(strlen(exe));
-    strcpy(exes_to_install[exes_index], exe);
-    exes_index++;
+
+    g_ptr_array_add (exes_to_install, (gpointer) exe);
 }
 
 /* 
@@ -150,9 +146,10 @@ static void add_missing(char *exe)
     @returns: string list, representing missing executables
 */
 
-char **missingexecutables(const char *ppd_filename)
+GPtrArray *missingexecutables(const char *ppd_filename)
 {
-    exes_index = 0;
+    GPtrArray *exes_to_install = g_ptr_array_new();
+    
     FILE *file = fopen (ppd_filename, "r");
     if(!file)
     {
@@ -210,7 +207,7 @@ char **missingexecutables(const char *ppd_filename)
                 exepath = pathcheck(exe, "/usr/bin:/bin");
                 if(!exepath)
                 {
-                    add_missing(exe);
+                    add_missing(exe, exes_to_install);
                     continue;
                 }
 
@@ -233,7 +230,7 @@ char **missingexecutables(const char *ppd_filename)
                             free(buffer);
                             exepath = pathcheck(exe, "/usr/bin:/bin");
                             if(!exepath)
-                                add_missing(exe);
+                                add_missing(exe, exes_to_install);
                             break;
                         }
                     }
@@ -290,7 +287,7 @@ char **missingexecutables(const char *ppd_filename)
                     char *parameter = (char *)malloc(21+strlen(new_exe));
                     strcpy(parameter, "/usr/lib/cups/filter/");
                     strcat(parameter, new_exe);
-                    add_missing(parameter);
+                    add_missing(parameter, exes_to_install);
                 }
             }
         }
