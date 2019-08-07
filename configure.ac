@@ -33,6 +33,7 @@ AC_FUNC_MALLOC
 AC_CHECK_FUNCS([getline strstr dup])
 
 AC_CONFIG_FILES([Makefile
-                 lib/Makefile])
+                 lib/Makefile
+                 SCPService.pc])
 
 AC_OUTPUT
